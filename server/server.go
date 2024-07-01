@@ -7,7 +7,7 @@ import (
     "os"
     "path/filepath"
 
-    "github.com/ваш_пользователь/github-репозиторий/util"
+    "github.com/Fodi999/cssgenserverdum/util"
 )
 
 // cssHandler обрабатывает запросы и запускает генерацию CSS

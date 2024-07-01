@@ -5,7 +5,7 @@ import (
     "fmt"
     "os"
     "path/filepath"
-    "github.com/ваш_пользователь/github-репозиторий/util/library"
+    "github.com/Fodi999/cssgenserverdum/util/library"
 )
 
 const cssFilePath = "static/css/style.css"
