@@ -56,37 +56,6 @@ func CreateSite(name string) error {
         return err
     }
 
-    // Создание основного файла для запуска сайта
-    mainContent := fmt.Sprintf(`package main
-
-import (
-    "log"
-    "net/http"
-    "os"
-)
-
-func main() {
-    port := os.Getenv("PORT")
-    if port == "" {
-        port = "8000"
-    }
-
-    // Обслуживание статических файлов из директории "static"
-    http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-
-    // Обслуживание файлов сайта
-    http.Handle("/", http.FileServer(http.Dir("./sites/%s")))
-
-    log.Printf("Starting server on :%%s...", port)
-    log.Fatal(http.ListenAndServe(":"+port, nil))
-}
-`, name)
-
-    err = CreateFile(filepath.Join(siteDir, "main.go"), mainContent)
-    if err != nil {
-        return err
-    }
-
     return nil
 }
 
@@ -111,11 +80,4 @@ func CreateFile(filePath, content string) error {
     return nil
 }
 
-// GetSitePort возвращает порт для запуска сайта
-func GetSitePort(name string) int {
-    hash := 0
-    for _, char := range name {
-        hash += int(char)
-    }
-    return 8000 + (hash % 1000)
-}
+
