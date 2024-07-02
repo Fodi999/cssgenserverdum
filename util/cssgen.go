@@ -4,7 +4,6 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    "path/filepath"
     "github.com/Fodi999/cssgenserverdum/util/library"
 )
 
@@ -13,13 +12,13 @@ const stateFilePath = "static/css/state.json"
 const jsFilePath = "static/js/checkStyles.js"
 
 func GenerateCSS() {
-    err := os.MkdirAll(filepath.Dir(cssFilePath), os.ModePerm)
+    err := os.MkdirAll("static/css", os.ModePerm)
     if err != nil {
         fmt.Println("Error creating static/css directory:", err)
         return
     }
 
-    err = os.MkdirAll(filepath.Dir(jsFilePath), os.ModePerm)
+    err = os.MkdirAll("static/js", os.ModePerm)
     if err != nil {
         fmt.Println("Error creating static/js directory:", err)
         return
@@ -290,3 +289,4 @@ func writeCSSFile(cssClasses map[string]string, classSet map[string]struct{}) er
 
     return nil
 }
+
