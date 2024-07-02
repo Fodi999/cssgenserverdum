@@ -1,3 +1,4 @@
+//util/sitegen.go
 package util
 
 import (
@@ -30,32 +31,13 @@ func CreateSite(name string) error {
         <a href="/">Home</a>
     </nav>
     <h1>Welcome to ` + name + `</h1>
-    <script src="/static/js/` + name + `.js"></script>
+    <script src="/static/js/script.js"></script>
 </body>
 </html>`
     err = CreateFile(filepath.Join(siteDir, "index.html"), htmlContent)
     if err != nil {
         return err
-    }
-
-    // Создание CSS файла
-    cssContent := `@dum base;
-@dum components;
-@dum utilities;`
-    err = CreateFile(filepath.Join(siteDir, "static/css/style.css"), cssContent)
-    if err != nil {
-        return err
-    }
-
-    // Создание JS файла
-    jsContent := `document.addEventListener("DOMContentLoaded", function() {
-    console.log("` + name + ` site loaded");
-});`
-    err = CreateFile(filepath.Join(siteDir, "static/js/"+name+".js"), jsContent)
-    if err != nil {
-        return err
-    }
-
+    } 
     // Создание основного файла для запуска сайта
     mainContent := fmt.Sprintf(`package main
 
@@ -119,5 +101,4 @@ func GetSitePort(name string) int {
     }
     return 8000 + (hash % 1000)
 }
-
 
