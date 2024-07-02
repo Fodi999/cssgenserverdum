@@ -68,15 +68,8 @@ func printPrompt() {
 }
 
 func handleCreateFiles() {
-    // Create HTML file
-    err := util.CreateDefaultHTMLFile()
-    if err != nil {
-        fmt.Println("\033[31mError creating HTML file: \033[0m", err)
-        return
-    }
-
     // Create JS file
-    err = util.CreateDefaultJSFile()
+    err := util.CreateDefaultJSFile()
     if err != nil {
         fmt.Println("\033[31mError creating JS file: \033[0m", err)
         return
