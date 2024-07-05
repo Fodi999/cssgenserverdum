@@ -1,9 +1,8 @@
+//util/sitegen.go
 package util
 
 import (
     "fmt"
-    "io"
-    "net/http"
     "os"
     "path/filepath"
 )
@@ -32,6 +31,7 @@ func CreateSite(name string) error {
         <a href="/">Home</a>
     </nav>
     <h1>Welcome to ` + name + `</h1>
+    <img src="/static/img/output.png" alt="Sushi">
     <script src="/static/js/script.js"></script>
 </body>
 </html>`
@@ -71,16 +71,6 @@ func main() {
         return err
     }
 
-    // Создание директорий и копирование статических файлов
-    err = CopyStaticFiles("https://raw.githubusercontent.com/Fodi999/cssgenserverdum/main/static/css/style.css", "static/css/style.css")
-    if err != nil {
-        return err
-    }
-    err = CopyStaticFiles("https://raw.githubusercontent.com/Fodi999/cssgenserverdum/main/static/js/script.js", "static/js/script.js")
-    if err != nil {
-        return err
-    }
-
     return nil
 }
 
@@ -105,36 +95,6 @@ func CreateFile(filePath, content string) error {
     return nil
 }
 
-// CopyStaticFiles загружает файл по URL и сохраняет его в локальной файловой системе
-func CopyStaticFiles(url string, dest string) error {
-    err := os.MkdirAll(filepath.Dir(dest), os.ModePerm)
-    if err != nil {
-        return fmt.Errorf("error creating directory %v: %v", filepath.Dir(dest), err)
-    }
-
-    // Создаем файл
-    out, err := os.Create(dest)
-    if err != nil {
-        return fmt.Errorf("error creating file: %v", err)
-    }
-    defer out.Close()
-
-    // Загружаем файл
-    resp, err := http.Get(url)
-    if err != nil {
-        return fmt.Errorf("error downloading file: %v", err)
-    }
-    defer resp.Body.Close()
-
-    // Копируем содержимое в файл
-    _, err = io.Copy(out, resp.Body)
-    if err != nil {
-        return fmt.Errorf("error copying file: %v", err)
-    }
-
-    return nil
-}
-
 // GetSitePort возвращает порт для запуска сайта
 func GetSitePort(name string) int {
     hash := 0
@@ -143,6 +103,10 @@ func GetSitePort(name string) int {
     }
     return 8000 + (hash % 1000)
 }
+
+
+
+
 
 
 
